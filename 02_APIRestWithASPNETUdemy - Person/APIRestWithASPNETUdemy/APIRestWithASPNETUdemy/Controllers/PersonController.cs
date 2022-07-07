@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace APIRestWithASPNETUdemy.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class PersonController : ControllerBase
     {
 
@@ -39,7 +39,7 @@ namespace APIRestWithASPNETUdemy.Controllers
             if (person == null) return NotFound();
 
 
-            return Ok();
+            return Ok(person);
         }
 
         [HttpPost]
@@ -66,7 +66,6 @@ namespace APIRestWithASPNETUdemy.Controllers
         {
              _personservice.Delete(id);
            
-
 
             return NoContent();
         }
