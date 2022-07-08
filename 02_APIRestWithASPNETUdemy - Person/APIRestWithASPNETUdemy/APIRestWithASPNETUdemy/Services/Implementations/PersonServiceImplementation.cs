@@ -1,4 +1,5 @@
 ﻿using APIRestWithASPNETUdemy.Model;
+using RestWithASPNETUdemy.Model.Context;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,8 +10,13 @@ namespace APIRestWithASPNETUdemy.Services.Implementations
 {
     public class PersonServiceImplementation : IPersonService
     {
+        private MySQLContext _context;
 
-        private volatile int count;
+        public PersonServiceImplementation(MySQLContext context)
+        {
+            _context = context;
+        }
+
         public Person Create(Person person)
         {
             return person;
@@ -23,15 +29,9 @@ namespace APIRestWithASPNETUdemy.Services.Implementations
 
         public List<Person> FindAll()
         {
-            List<Person> persons = new List<Person>();
+          
 
-            for (int i = 0; i < 8; i++)
-            {
-                Person person = MockPerson(i);
-                persons.Add(person);
-            }
-
-            return persons;
+            return _context.Persons.ToList();
         }
 
 
@@ -39,9 +39,9 @@ namespace APIRestWithASPNETUdemy.Services.Implementations
         {
             return new Person
             {
-                Id = IncrementAndGet(),
+                Id = 1,
                 FirstName = "Rodolfo",
-                LasttName = "Braga",
+                LastName = "Braga",
                 Address = "Maria da Graça",
                 Gender = "Male"
             };
@@ -51,24 +51,6 @@ namespace APIRestWithASPNETUdemy.Services.Implementations
         {
             return person;
         }
-        #region  Metodos auxiliares -----------------------------------------------------------
-        private Person MockPerson(int i)
-        {
-            return new Person
-            {
-                Id = IncrementAndGet(),
-                FirstName = "Person Name " + i,
-                LasttName = "Person Last Name " + i,
-                Address = "Address " + i,
-                Gender = i % 2 == 0?"Male":"Female"
-            };
-        }
-
-        private long IncrementAndGet()
-        {
-           
-            return Interlocked.Increment(ref count);
-        }
-        #endregion
+      
     }
 }
