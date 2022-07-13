@@ -1,5 +1,7 @@
 using APIRestWithASPNETUdemy.Business;
 using APIRestWithASPNETUdemy.Business.Implementations;
+using APIRestWithASPNETUdemy.Repository;
+using APIRestWithASPNETUdemy.Repository.Implementations;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -41,6 +43,7 @@ namespace APIRestWithASPNETUdemy
 
             // injeção de depedencia
             services.AddScoped<IPersonBusiness, PersonBusinessImplementation>();
+            services.AddScoped<IPersonRepository, PersonRepositoryImplementation>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
